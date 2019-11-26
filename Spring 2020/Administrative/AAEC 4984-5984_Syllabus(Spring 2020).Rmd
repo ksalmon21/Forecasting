@@ -1,0 +1,240 @@
+---
+output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: no
+    latex_engine: pdflatex
+    template: forecasting-syllabus.tex
+geometry: margin=1in
+
+title: "AAEC 5984: Applied Economic Forecasting"
+author: |
+  | Shamar L. Stewart
+  | Virginia Tech
+date: "Spring 2020"
+
+email: stewartls@vt.edu
+web: "github.com/shamar-stewart/forecasting"
+office: "202A Hutcheson Hall"
+officehours: "MWF 09:00-11:30 AM"
+classroom: '*TORG 1020*'
+classhours: "MW 2:30-03:45 PM"
+
+
+#fontfamily: mathpazo
+fontsize: 10pt
+header-includes: \linespread{1.25}
+
+---
+
+```{r setup, include=FALSE, cache=F, message=F, warning=F, results="hide"}
+knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_chunk$set(fig.path='figs/')
+knitr::opts_chunk$set(cache.path='_cache/')
+knitr::opts_chunk$set(warning=F, message=F)
+# knitr::opts_knit$get(kable.force.latex = TRUE)
+```
+
+
+
+```{r dates_bib, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE, dev='pdf')
+mon <- as.Date("2020-01-20")
+# fri <- as.Date("2016-01-08")
+
+advdate <- function(obj, adv) {
+ tmon <- obj + 7*(adv-1)
+ tfri <- obj + 4 + 7*(adv-1)
+ tmon <- format(tmon, format="%m/%d")
+ tfri <- format(tfri, format="%m/%d")
+ zadv <- sprintf("%02d", adv)
+ tmp <- paste("Week ",zadv,sep='',", ", tmon," - ",tfri)
+ return(tmp)
+}
+
+```
+
+# Course Description
+
+The primary objective of this course is to offer the tools necessary for time series modelling and analysis of agricultural, economic and financial data. In this course, we will focus on forecasting models and applying them to data related to commodity prices and agricultural yields, weather and climate, food consumption, exchange rates, and regional economic indicators. 
+
+Emphasis will be placed on examining and preparing the data prior to forecasting and forecast evaluation. Alternative forecasting techniques will be introduced to improve the quality of predictions. We will cover some of the traditional time series modeling and inference tools such as linear regression, ARIMA models, trend modeling, seasonal adjustments, VAR etc. Towards the latter portion, we will cover a few nonlinear techniques. For example, we will utilize ARCH and GARCH model techniques to examine phenomena such as “volatility clusterings” in the commodities and financial markets. Lastly, we will explore some smooth transition models to account for possible structural breaks in our data.
+
+# Course Objectives
+
+Upon successful completion of this course, students should be able to:
+
+-	formulate and specify basic forecasting models.
+
+-	collect, interpret, and analyze data by building forecasting models.
+
+-	apply fundamental statistical and probability concepts used in forecasting.
+
+-	appreciate the existence of a hierarchy of forecasting models.
+
+-	use econometric software.
+
+-	graphically examine Time Series Data: trend, seasonal, cyclical, and irregular components.
+
+-	evaluate forecasting accuracies of competing forecasting methods.
+
+-	form efficient “combination” forecasts
+
+-	recognize that market analysis is a combination of science and art; i.e. effective market analysis requires knowledge of scientific techniques as much as human judgment based on institutional understanding about markets.
+
+
+# Textbooks
+
+You are not required to purchase a text for this course as I believe my notes will be sufficient. If you were to require additional reference and background sources, however, I would recommend the following texts:
+
+-	Forecasting: Principles and Practice by Rob J. Hyndman and George Athanasopoulos.
+
+    - This book is available for free at http://otexts.com/fpp/. All the examples are written in R.
+
+-	Forecasting for Economics and Business, by Gloria Gonzalez-Rivera
+
+
+# Prerequisites
+
+Graduate standing
+
+# Software
+
+Econometric analyses will be done in R. This statistical software may be downloaded for free by going to https://www.r-project.org/. Also, we will use the R studio interface available at https://www.rstudio.com/.
+
+Datacamp statement here!!!!!
+
+
+# Grading Policy
+
+This section of the syllabus details multiple policies that will be implemented in this class through
+the semester. Continued enrollment in this class constitutes acceptance of the terms outlined in
+this document.
+
+## Grading Policy
+
+Your assessments for this course are as follows:
+
+Assessments	       |    Weights
+:-------------     | :-------------:|
+Weekly Assignments | 	   **30%**
+Midterm  	         |     **25%**
+Final Exam	       |     **25%**
+Final Project	     |     **20%**
+Total	             |     **100%**
+
+Your letter grades will be assigned as follows:
+
+| A >= 93 | A- 90-92 | B+ 87-89 | B 83-86 |  B- 80-82 |  C+ 77-79 |
+|:-------:|:-------: |:-------: |:-------:|:---------:|:--------- |
+| C 73-76 | C- 70-72 | D+ 67-69 | D 63-66 | D- 60-62  | F <60     |
+
+I will **ROUND UP** your final grades but please do not anticipate any further grade adjustments!
+
+### Assignments  
+
+Weekly assignments will be given during the semester. The assignments are mostly empirical and practical for solving problems. The assignments are given on CANVAS and you are required to submit your answers electronically on CANVAS as well. The due date of each assignment will be given at the time when the assignment is announced. A late assignment is **NOT ACCEPTABLE**, and will receive a grade of 0.
+
+Group study and discussion for assignments are highly encouraged. However, each student must independently write his/her own solutions for turning in. The honor code is fully enforced and all students who resort to submitting “copycat” assignments will receive a zero for the assignment.
+
+Lastly, all assignments must be complted using R Markdown. In our *Introduction to R* session, I will discuss how to use this platform. Additional resources such as Tutorials, and cheatsheets can be found using the *Learn R Markdown* website at https://rmarkdown.rstudio.com/docs/articles/rmarkdown.html. 
+
+### Exams
+
+Your exams are designed to evaluate not only your grasp of the material discussed in class and assigned on homeworks, but also your ability to apply the concepts to more complex and/or new problems.
+It is in the best interest of all students to take their exams on time. 
+
+## Make-Up Exam Policy
+
+There are **NO** make-ups for missed exams. 
+
+### Final Project
+
+Students will be assigned a dataset and specific parameters around which they are expected to complete this paper. In general, the project will serve to reinforce the topics and techniques explore in the course. 
+
+Students who are more ambitious, upon consultation with and approval from the instructor, are allowed to complete an original work instead. In this case, you are expected to write a scholarly article of about 12-15 pages (12pt, double-spaced, including references, tables, and figures). Your intention here should be that inevitably this might lead to a publishable paper in an area of interest to you.
+
+
+## Regrades
+
+If you feel that you were unfairly graded on any assessment for this course, you have until the subsequent class period after the quiz/exam is returned to submit a re-grade request. Requesting a re-grade in no way assures you will receive additional points. 
+
+Lastly, if you have questions about the material being covered, your performance in the course or related concerns, please meet with me after class, or arrange an appointment by email. 
+
+
+## Lab Sessions
+
+While I will make every effort to mix in the technical aspects (coding) of the topics into our class time, I anticipate that we may intermittently require contact hours outside of the scheduled class time for R coding. If this is the case, we will try to meet at mutually agreeable times for extra help and lab sessions.
+
+## Attendance and Participation Policy
+
+I do not have a mandatory attendance requirement for this class. You are responsible for your own success, and failure, in this course. In my experience, and studies would prove, there is a high correlation between students’ attending classes regularly and performing well in university courses.
+
+Students need to be active participants in this course. This involves attending classes regularly, asking and answering questions, and participating in class discussions. It is your responsibility to obtain any handouts, assignments or information announced during a missed class period. Any student who is unable to attend class regularly, regardless of the reason or circumstance, should withdraw from the class before poor attendance interferes with his/her ability to achieve the course objectives. 
+
+**Students are strongly advised to set up office hours appointments, the moment they sense that they are falling behind and need help understanding the material. Do not wait until the end of the semester to do so if such problems arise. I am unable to help you then!**
+
+## Cellphone/Computer Usages
+If you need to speak or correspond via email or text please excuse yourself quietly from my class and conduct your business outside. Otherwise be respectful of other students: turn your cellphones to vibrate during the class and do not text in class. 
+
+I would normally ban the use of laptops in class but nature of this class requires that students follow along with scripts and lectures on their laptops. For these purposes, I will allow their use in class. If any such device is seen being used any other purpose you will lose this privilege and will not be permitted to use them during subsequent classes.
+
+## ADA Policy
+
+The Americans with Disabilities Act (ADA) is a federal anti-discrimination statute that provides comprehensive civil rights protection for persons with disabilities. If you believe you have a disability requiring an accommodation, please contact the Services for Students with Disabilities (SSD) at (540) 231-3788 (30 Old Turner St). After the initial arrangements are made with that office, please contact the instructor.
+
+## Academic Dishonesty Policy
+
+Please note that the Virginia Tech honor code applies to all graded assessments in this course. Moreover, the Department of Agricultural & Applied Economics has a zero tolerance policy towards acts of academic misconduct. Violations of the Honor Code will result in a grade of F in the course. For more information, please visit http://www.honorsystem.vt.edu 
+
+## Disabilities Policy
+
+Federal law mandates the provision of services at the university-level to qualified students with disabilities. Make sure to include all that relevant information here.
+
+
+<!-- \newpage -->
+\bigskip
+
+# Tentative Course Outline
+
+The instructor reserves the right to change the dates and topics as seen fit. Prior notification will be provided if any detail below were to change.
+
+## `r advdate(mon, 1)`: Introduction,  Getting Started in R & Reproducibility
+
+## \hskip 1.40in 01/24 : \small We will meet for a Lab session on the Friday of this week as well.
+
+
+## `r advdate(mon, 2)`: Exploring & Visualizing Time Series
+
+##  `r advdate(mon, 3)`: Time Series Regressions
+
+##  `r advdate(mon, 4)`: Time Series Decomposition
+
+##  `r advdate(mon, 5)`: Exponential Smoothing & Moving Averages
+
+##  `r advdate(mon, 6)`: (Box-Jenkins) ARIMA Models
+
+##  `r advdate(mon, 7)`: Midterm 
+
+##  `r advdate(mon, 8)`: Forecasting with VARS
+
+##  `r advdate(mon, 9)`: Basics of ARCH & GARCH Models
+
+##  `r advdate(mon, 10)`: Spring Break Holidays
+
+##  `r advdate(mon, 11)`: Forecasting with NonLinear Models
+
+##  `r advdate(mon, 12)`: You
+
+## `r advdate(mon, 13)`: Are
+
+##  `r advdate(mon, 14)`: Done
+
+##  `r advdate(mon, 15)`: with
+
+
+##  `r advdate(mon, 16)`: your
+
+
+##  `r advdate(mon, 17)`: Syllabus 
+
