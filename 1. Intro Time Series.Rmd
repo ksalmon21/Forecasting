@@ -1,0 +1,274 @@
+---
+title: "Applied Economic Forecasting"
+subtitle: 'Basics of Time Series & Forecasting'
+author: Shamar L. Stewart
+institute: |
+  | Department of Agricultural & Applied Economics
+  | Virginia Tech
+date: 'Spring 2020'
+autosize: true
+fig_caption: true
+header-includes:
+   - \usepackage{xcolor}
+output:
+  beamer_presentation:
+    keep_tex: FALSE
+    theme: "madrid"
+    colortheme: "default"
+    fonttheme: "serif"
+    slide_level: 2
+    # toc: TRUE
+    includes:
+      in_header: 
+        - ../mystyle.tex
+
+---
+```{r echo=FALSE, include=FALSE, warning=FALSE} 
+if(!require(fpp2))install.packages("fpp2"); require(fpp2)
+if(!require(astsa))install.packages("astsa"); require(astsa)
+if(!require(quantmod))install.packages("quantmod"); require(quantmod)
+if(!require(latex2exp))install.packages("latex2exp"); require(latex2exp)
+if(!require(ggplot2))install.packages("ggplot2"); require(ggplot2)
+if(!require(gridExtra))install.packages("gridExtra"); require(gridExtra)
+library(knitr)
+mytheme <- theme(
+		panel.background=
+		element_rect(fill="#E3E3EE"),
+		legend.position="bottom"
+)
+```
+
+# Introduction to Economic Forecasting
+## Outline
+
+  1. What is Economic Forecasting?
+  2. Explaining Time Series
+  3. Forecasting Methods and Steps
+  4. Types of Forecasts
+  5. Data Sources
+  6. Forecasting Software
+  
+  
+## What is Economic Forecasting? {.plain}
+ - Predicting future values based on
+    - qualitative and/or qualitative judgement.
+    
+The appropriate forecasting methods depend largely on what data are available.
+
+1. If there are no data available, or if the data available are not relevant to the forecasts, then \textbf{qualitative} forecasting methods must be used. 
+  - require the use of well-developed judgemental forecast methods. 
+
+
+2. \textbf{Quantitative} forecasting can be applied when two conditions are satisfied:
+
+  i. numerical information about the past is available;
+  ii. it is reasonable to assume that some aspects of the past patterns will continue into the future.
+
+## What is Economic Forecasting?
+
+### Quantitative forecasts
+Most quantitative prediction problems use either time series data or cross-sectional data (collected at a single point in time). 
+
+\bigskip In this course, we are concerned with forecasting future data, and we will concentrate on the time series domain.
+
+## What is Economic Forecasting?
+
+\small
+> Often in forecasting, a key step is knowing when something can be forecast accurately, and when forecasts will be no better than tossing a coin. Good forecasts capture the genuine patterns and relationships which exist in the historical data, but do not replicate past events that will not occur again.
+\hfill ~Rob Hyndman
+\normalsize
+
+A time series is a sequence of measurements over time, usually obtained at regular, equally spaced intervals
+
+- Every minute
+- Hourly
+- Daily
+- Weekly
+- Monthly
+- Quarterly
+- Yearly
+
+
+## Examples of Time Series Models {.plain}
+
+```{r echo=FALSE, warning=FALSE,include=FALSE,message=FALSE}
+start_date <- as.Date("2017-01-02")
+end_date <- as.Date("2019-10-01")
+getSymbols("DJI", src = "yahoo", from = start_date, to = end_date)
+getSymbols("CPIAUCSL", src = "FRED", from = start_date, to = end_date)
+```
+
+```{r plots, echo=FALSE, warning=FALSE,message=FALSE}
+par(mfrow=c(2,2),bg="white")
+
+tsplot(oil,main= "Crude oil, WTI spot price FOB" , ylab="($ per barrel)",xlab="",lwd=2,col="green4")
+
+tsplot(soi,main= "Southern Oscillation Index (SOI)" , ylab="",xlab="",lwd=2)
+abline(h=0,col="red",lty="dashed",lwd=2)
+text(1970, .91, "COOL", col="cyan4",font = 2)
+text(1970,-.91, "WARM", col="darkmagenta",font=2)
+
+tsplot(as.zoo(DJI$DJI.Close),main = "Dow Jones Index",ylab= "Closing Price",xlab = "",lwd = 2, col="blue")
+
+tsplot(as.zoo(CPIAUCSL),main = "US Consumer Price Index",ylab= "Index",xlab = "",lwd = 2, col="red")
+#dev.off()
+
+```
+
+## Components of a Time Series
+
+-  __Trends__ (exists when there is a longrun increase or decrease in the data.)
+    - Linear
+    - Nonlinear
+  
+- __Seasonality__ (occurs when a time series is affected by seasonal factors such as the time of the year or the day of the week.)
+  - Seasonality is __always of a fixed and known frequency__.
+      - These patterns repeat themselves within a year.
+      - These fluctuations are usually due to economic conditions, and are often related to the “business cycle”.
+      - The duration of these fluctuations is usually at least 2 years.
+  
+- __Cycles__
+  - Rises and falls that are not of a fixed frequency
+  
+
+## (Linear) trend models {.plain}
+
+```{r trends_plots, echo=FALSE, message=FALSE, warning=FALSE,fig.asp=0.7}
+par(mfrow=c(3,1),bg="white")
+
+tsplot(as.zoo(CPIAUCSL),main = "US Consumer Price Index",ylab= "Index",xlab = "",lwd = 2, col="black")
+tsplot(jj,main = "Johnson & Johnson Earnings",ylab= "Earnings per share",xlab = "",lwd = 2, col="green4")
+tsplot(austa,main = "Total International Visitors to Australia",ylab= "millions",xlab = "",lwd = 2, col="blue")
+#tsplot(a10,main = "Antidiabetic drug sales",ylab= "$ million" ,xlab = "",lwd = 2, col="red4")
+```
+
+## Models with Trends and Seasonality {.plain}
+
+```{r trends_season, echo=FALSE, message=FALSE, warning=FALSE,fig.asp=0.6}
+# par(mfrow=c(1,3),bg="white")
+a10 %>% autoplot(, col="red4") + ggtitle("Monthly anti-diabetic drug sales") + ylab("$ million") + xlab("") + mytheme
+```
+__Forecasts of this series would need to capture the seasonal pattern and a slowly changing trend.__
+
+## Forecasting Methods & Steps
+
+  1. Problem formulation
+  2. Data collection
+  3. Data manipulation and cleaning
+  4. Model building
+  5. Model evaluation
+  6. Model implementation (the actual forecast)
+  7. Forecast evaluation
+
+## Forecasting Methods & Steps
+
+1. __Problem formulation__
+  - Why is a forecast needed?
+  - Who will use the forecast?
+  - What are specific requirements on forecasting?
+  - What level of detail or aggregation is required?
+  - What is the proper time horizon?
+  - What forecasting methods should be chosen?
+
+## Forecasting Methods & Steps
+
+2. __Data collection__
+  - Where to obtain data required by the forecasting problem?
+  - What are data frequencies, sample periods, sources?
+  - How much does data collection cost?
+  - What level of data is required?
+  - What is the data quality?
+
+
+## Forecasting Methods & Steps
+
+3. __Data manipulation and cleaning__
+  - Missing values
+  - Outliers
+  - Different data sources
+  - Different units
+  - ...
+
+## Forecasting Methods & Steps
+
+  4. __Model building__
+  
+  - This will depend on the characteristic of the data and the purpose for the forecast.
+  
+ - See [How to choose the right forecasting Technique](https://hbr.org/1971/07/how-to-choose-the-right-forecasting-technique)  
+
+## Forecasting Methods & Steps
+
+5. __Model evaluation__
+  - Is the chosen model best suited for data?
+  - Are the underlying assumptions of the model satisfied?
+    - For example, assumptions for ordinary least square (OLS) regression:
+        - A.1: zero error term mean
+        - A.2: error terms are homoscedasticity
+        - A.3: error terms have no autocorrelation
+        - A.4: no multicollinearity
+        - A.5: explanatory variables and error terms are uncorrelated.
+        - ...
+
+## Forecasting Methods & Steps
+6. __Model implementation for forecasting__
+  - rolling window forecast
+  -  recursive/expanding window forecast
+  -  estimation period and forecasting period
+  -  parameter updating frequencies
+  -  ...
+
+
+## Forecasting Methods & Steps
+7. __Forecast Evaluation__
+  - Choice of loss functions:
+    - Mean Absolute Deviations (MAD)
+\[MAD=\frac{1}{T}\sum_{t=1}^{T}\left|Y_{t}-\widehat{Y}_{t}\right|\]
+
+    - Mean Squared Error (MSE) 
+\[MSE=\frac{1}{T}\sum_{t=1}^{T}\left(Y_{t}-\widehat{Y}_{t}\right)^{2}\]
+
+    - Root Mean Squared Error (RMSE) 
+\[RMSE=\sqrt{MSE}=\sqrt{\frac{1}{T}\sum_{t=1}^{T}\left(Y_{t}-\widehat{Y}_{t}\right)^{2}}\]
+  
+
+## Forecasting Methods & Steps{.plain}
+8. __Types and Objectives of Forecasting__ 
+
+```{r point-density,echo=FALSE, , fig.show = "hold", include= TRUE,out.width = "90%", fig.align = "default"}
+p1 <- livestock %>% auto.arima() %>% forecast(level=0) %>% autoplot() + ggtitle("Point Forecasts of Sheep livestock in Asia ") + xlab("") + ylab("Millions") + mytheme
+p2 <- livestock %>% auto.arima() %>% forecast(level=c(80,95)) %>% autoplot(, main= "Forecasts of Sheep livestock in Asia with Prediction intervals",xlab = "", ylab = "Millions")  + mytheme
+#	#+ theme_bw() #theme_gray()
+grid.arrange(p1, p2, ncol=1)
+```
+
+## Data Sources
+
+- Federal Reserve Economic Data (https://fred.stlouisfed.org/)
+-  The World Bank (http://data.worldbank.org/)
+-  EuroStat (http://ec.europa.eu/Eurostat)
+-  U.S. Bureau of Economic Analysis (www.bea.gov)
+-  U.S. Bureau of Labor Statistics (www.bls.gov)
+-  U.S. Census Bureau (www.census.gov)
+-  OECD iLibrary (http://www.oecd-ilibrary.org/statistics)
+-  IMF Data (https://www.imf.org/en/Data)
+-  Financial Time Series (http://www.finance.yahoo.com)
+- ...
+
+## Forecasting Software
+
+-  General statistical packages
+    -  Minitab
+    -  Excel
+    -  SPSS
+    -  EVIEWS
+   
+-  General statistical programming software:
+    -  __R__
+    -  Matlab
+    -  Mathematica
+    -  SAS
+    -  Stata
+    -  C
+    -  Fortran
+    - Python
