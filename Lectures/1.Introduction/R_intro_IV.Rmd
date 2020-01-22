@@ -42,7 +42,7 @@ It is good practice to set the working directory location to where the files and
 ```{r, tidy=TRUE, tidy.opts=list(width.cutoff=50),eval = FALSE}
   setwd("C:/users/[your user name]/Desktop/AAEC4984/")
   # OR
-  setwd("C:\\users\\[your user name]\\Desktop\\AAEC4984/") 
+  setwd("C:\\users\\[your user name]\\Desktop\\AAEC4984\\") 
   # notice the double backslashes
 ```
 
@@ -69,6 +69,27 @@ getwd()
 ```{r, eval = FALSE}
   dir.create("[Folder name]")
 ```  
+
+## Importing data
+
+`R` allows us to import several file types. I will discuss 3 that we are most likely to use in this course.
+
+1. Text files: Data sometimes come with headers (the first row is variable names, not actual data!) You need to tell R that!
+ 
+```{r, eval= FALSE}
+  textdata<-read.table("examples/hogsdata.txt",header=T)
+```
+  
+2. CSV files
+```{r,eval=FALSE}
+  csvdata<-read.csv("examples/hogsdata.csv",header=T)
+```
+
+3. xlsx files (requires openxlsx package)
+```{r, eval= FALSE}
+  xlsxdata<-read.csv("examples/hogsdata.xlsx", ... )
+```
+
 
 ## Using Functions & Packages
 

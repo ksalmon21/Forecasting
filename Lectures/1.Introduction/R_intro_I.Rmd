@@ -12,7 +12,7 @@ header-includes:
    - \usepackage{xcolor}
 output:
   beamer_presentation:
-    keep_tex: TRUE
+    keep_tex: FALSE
     theme: "madrid"
     colortheme: "default"
     fonttheme: "serif"
