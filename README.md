@@ -27,11 +27,18 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |           |                  |                                         |            |
 |           |                  | **Topic 4: Time Series Regressions**    |            |
 |           |                  |                                         |            |
-|5          |                  | Time Series Regressions                 |            |
+|5          |                  | Time Series Regressions                 | HW\#3 (Coming Soon)           |
 |           |                  |                                         |            |
 |           |                  | **Topic 5: Time Series Decomposition**  |            |
 |           |                  |                                         |            |
-|6          |                  | Time Series Decomposition               |            |
+|6          |                  | Time Series Decomposition               | HW\#4 (Coming soon)           |
 |           |                  |                                         |            |
+|           |                  | **Topic 6: Exponential Smoothing & Moving Averages**    |            |
 |           |                  |                                         |            |
+|7          |                  | Exponential Smoothing and Moving Averages                 |            |
 |           |                  |                                         |            |
+|8           |                  | **SPRING BREAK**                        |            |
+|           |                  |                                         |            |
+|           |                  | **Topic 7: Exponential Smoothing & Moving Averages/Forecasting with ARIMA Models**    |            |
+|           |                  |                                         |            |
+|9          |                  | Exponential Smoothing & Moving Averages/Forecasting with ARIMA models                 |            |
