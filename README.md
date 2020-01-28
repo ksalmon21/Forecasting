@@ -21,6 +21,17 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |          |                  | |            |
 | 3         |                  | Exploring & Visualizing Time Series    |   HW\#1 (Coming Soon)         |
 |           |                  |                                         |            |
-| 4         |                  | Evaluation of Basic Forecasting Methods |            |
+|          |                  | **Topic 3: Evaluation of Basic Forecasting Methods** |            |
+|           |                  |                                         |            |
+| 4         |                  | Evaluation of Basic Forecasting Methods | HW\# 2 (Coming Soon)           |
+|           |                  |                                         |            |
+|           |                  | **Topic 4: Time Series Regressions**    |            |
+|           |                  |                                         |            |
+|5          |                  | Time Series Regressions                 |            |
+|           |                  |                                         |            |
+|           |                  | **Topic 5: Time Series Decomposition**  |            |
+|           |                  |                                         |            |
+|6          |                  | Time Series Decomposition               |            |
+|           |                  |                                         |            |
 |           |                  |                                         |            |
 |           |                  |                                         |            |
