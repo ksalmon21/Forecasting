@@ -7,14 +7,15 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |---------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------| 
 | Week      | Date             | Content                                 | Evaluation |
 |           |                  |                                         |            |
-| 1 & 2     | 01/22/2020       | **First Class** Syllabus                |            |
-|           |                  | Introduction to Time Series             |            |
-|           |                  | Introduction to R (I)                   |            |
-|           |                  | Introduction to R (II)                  |            |
-|           |                  | Introduction to R (III)                 |            |
-|           |                  | Introduction to R (III)                 |            |
-|           |                  | Introduction to R (IV)                  |            |
-|           |                  | Introduction to R Markdown              |            |
+| 1 & 2     | 01/22/2020       | **First Class** [Syllabus](Syllabus)    |            |
+|           |                  |                                         |            |
+|           |                  | **Topic 1: Introduction to Time Series**            |            |
+|           |                  |                                         |            |
+|           |                  | [Introduction to R (I)](Lectures/1.Introduction/R_intro_I.pdf)                  |            |
+|           |                  | [Introduction to R (II)](Lectures/1.Introduction/R_intro_II.pdf)                 |            |
+|           |                  | [Introduction to R (III)](Lectures/1.Introduction/R_intro_III.pdf)                |            |
+|           |                  | [Introduction to R (IV)](Lectures/1.Introduction/R_intro_IV.pdf)                |            |
+|           |                  | [Introduction to R Markdown](Lectures/1.Introduction/RMarkdown_Intro.pdf)             |            |
 |           |                  |                                         |            |
 | 3         |                  | Exploring & Visualizing Time Series     |            |
 |           |                  |                                         |            |
