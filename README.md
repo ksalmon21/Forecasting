@@ -17,7 +17,9 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |           |                  | [Introduction to R (IV)](Lectures/1.Introduction/R_intro_IV.pdf)                |            |
 |           |                  | [Introduction to R Markdown](Lectures/1.Introduction/RMarkdown_Intro.pdf)             |            |
 |           |                  |                                         |            |
-| 3         |                  | Exploring & Visualizing Time Series     |            |
+|        |                  | **Topic 2: Exploring & Visualizing Time Series**     |            |
+|          |                  | |            |
+| 3         |                  | Exploring & Visualizing Time Series    |            |
 |           |                  |                                         |            |
 | 4         |                  | Evaluation of Basic Forecasting Methods |            |
 |           |                  |                                         |            |
