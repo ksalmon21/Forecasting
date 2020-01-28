@@ -39,6 +39,6 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |           |                  |                                         |            |
 |8           |                  | **SPRING BREAK**                        |            |
 |           |                  |                                         |            |
-|           |                  | **Topic 7: Exponential Smoothing & Moving Averages/Forecasting with ARIMA Models**    |            |
+|           |                  | **Topic 7: Exponential Smoothing & Moving Averages / Forecasting with ARIMA Models**    |            |
 |           |                  |                                         |            |
-|9          |                  | Exponential Smoothing & Moving Averages/Forecasting with ARIMA models                 |            |
+|9          |                  | Exponential Smoothing & Moving Averages / Forecasting with ARIMA models                 |            |
