@@ -15,11 +15,11 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |           |                  | [Introduction to R (II)](Lectures/1.Introduction/R_intro_II.pdf)                 |            |
 |           |                  | [Introduction to R (III)](Lectures/1.Introduction/R_intro_III.pdf)                |            |
 |           |                  | [Introduction to R (IV)](Lectures/1.Introduction/R_intro_IV.pdf)                |            |
-|           |                  | [Introduction to R Markdown](Lectures/1.Introduction/RMarkdown_Intro.pdf)             |            |
+|           |                  | [Introduction to R Markdown](Lectures/1.Introduction/RMarkdown_Intro.pdf)             | [Complete Introduction to R on Datacamp](https://www.datacamp.com/courses/free-introduction-to-r/) **Ignore the section on Factors**           |
 |           |                  |                                         |            |
 |        |                  | **Topic 2: Exploring & Visualizing Time Series**     |            |
 |          |                  | |            |
-| 3         |                  | Exploring & Visualizing Time Series    |            |
+| 3         |                  | Exploring & Visualizing Time Series    |   HW\#1 (Coming Soon)         |
 |           |                  |                                         |            |
 | 4         |                  | Evaluation of Basic Forecasting Methods |            |
 |           |                  |                                         |            |
