@@ -19,7 +19,7 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |           |                  |                                         |            |
 |        |                  | **Topic 2: Exploring & Visualizing Time Series**     |            |
 |          |                  | |            |
-| 3         |                  | Exploring & Visualizing Time Series    |   HW\#1 (Coming Soon)         |
+| 3         |                  | [Exploring & Visualizing Time Series](Lectures/2.Exploring & Visualizing Time Series/2-Visualizing-Time-Series.pdf)    |   HW\#1 (Coming Soon)         |
 |           |                  |                                         |            |
 |          |                  | **Topic 3: Evaluation of Basic Forecasting Methods** |            |
 |           |                  |                                         |            |
