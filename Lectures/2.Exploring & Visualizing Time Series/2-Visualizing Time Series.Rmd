@@ -1,0 +1,610 @@
+---
+title: "Applied Economic Forecasting"
+subtitle: "2. Exploring & Visualizing Time series"
+date: "Spring 2020"
+autosize: true
+fontsize: 11pt
+output:
+  beamer_presentation:
+    fig_width: 7
+    fig_height: 3.5
+    highlight: tango
+    theme: madrid
+    colortheme: "default"
+    fonttheme: "serif"
+    toc: true
+keep_tex: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,tidy.opts=list(width.cutoff=50),tidy=TRUE)
+library(fpp2)
+#options(width=50)
+```
+
+# Time series in R
+
+## `ts` objects and `ts` function
+
+\fontsize{12}{13}
+
+A time series is stored in a `ts` object in R:
+
+ - a list of numbers
+ - information about times those numbers were recorded.
+
+### Example
+
+```{r tstable, echo=FALSE}
+x <- c(123,39,78,52,110)
+yr <- 2012:2016
+knitr::kable(data.frame(Year=yr,Obs.=x), booktabs=TRUE)
+```
+
+```r
+y <- ts(c(123,39,78,52,110), start=2012)
+```
+
+## `ts` objects and `ts` function
+
+For observations that are more frequent than once per year, we need to add a `frequency` argument.
+
+E.g., monthly data stored as a numerical vector `z`:
+
+```r
+y <- ts(z, frequency=12, start=c(2003, 1))
+```
+
+## `ts` objects and `ts` function
+
+### `ts(data, frequency, start)`
+
+\begin{tabular}{lrl}
+\bf Type of data & \hspace*{1.95cm}\bf frequency                 & \bf start example\hspace*{0.25cm} \\
+\midrule
+Annual           &  1                                  & 1995\\
+Quarterly        & 4                                  & c(1995,2)\\
+Monthly          & 12                                 & c(1995,9)\\
+Daily            & 7 \emph{or} 365.25                 & \emph{or} c(1995,234) \\
+Weekly           & 52.18                             & c(1995,23)\\
+Hourly           & 24 \emph{or} 168 \emph{or} 8,766  & 1\\
+Half-hourly      & 48 \emph{or} 336 \emph{or} 17,532 & 1
+\end{tabular}
+
+## Let's Practice!!!
+
+1. Set a seed as 10^3
+2. Generate a random normal variable (`x`) with 200 observations, mean=75, and sd= 5
+3. Declare x as a *quarterly* ts object ending December 2018 (`x.ts`)\label{step3}
+4. Now repeat step \ref{step3} with weekly, monthly and annual frequencies (*How about using a loop?*)
+
+
+## Australian GDP
+
+\fontsize{12}{14}
+
+```
+ausgdp <- ts(x, frequency=4, start=c(1971,3))
+```
+
+  * Class: "ts"
+  * Print and plotting methods available.
+
+```{r, echo=TRUE}
+head(ausgdp,30)
+```
+
+## Australian GDP
+
+```{r, echo=TRUE, fig.height=4}
+autoplot(ausgdp)
+```
+
+## Residential electricity sales
+
+\fontsize{12}{14}\sf
+
+```{r}
+elecsales
+```
+
+## Class package
+
+```
+> library(fpp2)
+```
+
+This loads:
+
+  * some data for use in examples and exercises
+  * **forecast** package (for forecasting functions)
+  * **ggplot2** package (for graphics functions)
+  * **fma** package (for lots of time series data)
+  * **expsmooth** package (for more time series data)
+
+# Time plots
+
+## Time plots
+
+\small
+
+```{r, echo=TRUE, fig.height=4}
+autoplot(melsyd[,"Economy.Class"])
+```
+
+## Time plots
+
+\small
+
+```{r a10, echo=TRUE}
+autoplot(a10) + ylab("$ million") + xlab("Year") + ggtitle("Antidiabetic drug sales")
+```
+
+## Let's Practice \setbeamercolor{}{bg=red}
+
+1. Using the data from our earlier exercise: Plot `x.ts` at the monthly, quarterly and yearly frequencies.
+
+2. Create plots of the following time series: `dole`, `bricksq`, `lynx`, `goog`
+- Use `help()` to find out about the data in each series.
+- For each of the plots, be sure to modify the axis labels and title.
+
+## Are time plots best?
+
+\fontsize{12}{14}\sf
+
+```{r maxtemp}
+autoplot(elecdaily[,"Temperature"]) + labs(x = "Week", y = "Max temperature")
+```
+
+## Are time plots best?
+
+\fontsize{12}{14}\sf
+
+```{r maxtemp2, warning=FALSE, message=FALSE}
+qplot(time(elecdaily), elecdaily[,"Temperature"]) + labs(x = "Week", y = "Max temperature")
+```
+
+# Seasonal plots
+
+## Seasonal plots
+
+\footnotesize
+
+```{r, echo=TRUE}
+ggseasonplot(a10, year.labels=TRUE, year.labels.left=TRUE) +  ylab("$ million") +
+  ggtitle("Seasonal plot: antidiabetic drug sales")
+```
+
+## Seasonal plots
+
+  * Data plotted against the individual "seasons" in which the data were observed.  (In this case a "season" is a month.)
+  * Something like a time plot except that the data from each season are overlapped.
+  * Enables the underlying seasonal pattern to be seen more clearly, and also allows any substantial departures from the seasonal pattern to be easily identified.
+  * In R: `ggseasonplot()`
+
+## Seasonal polar plots
+
+\small
+
+```{r, fig.height=6, out.width="7.5cm"}
+ggseasonplot(a10, polar=TRUE) + ylab("$ million")
+```
+
+## Seasonal subseries plots
+
+\small
+
+```{r, echo=TRUE}
+ggsubseriesplot(a10) + ylab("$ million") +
+  ggtitle("Subseries plot: antidiabetic drug sales")
+```
+
+## Seasonal subseries plots
+
+  * Data for each season collected together in time plot as separate time series.
+  * Enables the underlying seasonal pattern to be seen clearly, and changes in seasonality over time to be visualized.
+  * In R: `ggsubseriesplot()`
+
+## Quarterly Australian Beer Production
+
+```{r}
+beer <- window(ausbeer,start=1992)
+autoplot(beer)
+```
+
+## Quarterly Australian Beer Production
+
+```{r}
+ggseasonplot(beer,year.labels=TRUE)
+```
+
+## Quarterly Australian Beer Production
+
+```{r}
+ggsubseriesplot(beer)
+```
+
+## Let's Practice!!!
+
+The `arrivals` data set comprises quarterly international arrivals (in thousands) to Australia from Japan, New Zealand, UK and the US.
+
+  - Use `autoplot()` and `ggseasonplot()` to compare the differences between the arrivals from these four countries.
+  - Can you identify any unusual observations?
+
+# Seasonal or cyclic?
+
+## Time series patterns
+
+Trend
+  : pattern exists when there is a long-term increase or decrease in the data.
+
+Seasonal
+  : pattern exists when a series is influenced by seasonal factors (e.g., the quarter of the year, the month, or day of the week).
+
+Cyclic
+  : pattern exists when data exhibit rises and falls that are \emph{not of fixed period} (duration usually of at least 2 years).
+
+## Time series components
+
+### Differences between seasonal and cyclic patterns:
+
+* seasonal pattern constant length; cyclic pattern variable length
+* average length of cycle longer than length of seasonal pattern
+* magnitude of cycle more variable than magnitude of seasonal pattern
+
+## Time series patterns
+
+\small
+
+```{r}
+autoplot(window(elec, start=1980)) +
+  ggtitle("Australian electricity production") + labs(x = "Year", y = "GWh")
+```
+
+## Time series patterns
+
+\small
+
+```{r}
+autoplot(bricksq) +
+  ggtitle("Australian clay brick production") +  xlab("Year") + ylab("million units")
+```
+
+## Time series patterns
+
+\small
+
+```{r}
+autoplot(hsales) +  ggtitle("Sales of new one-family houses, USA") + labs(x = "Year", y = "Total sales")
+```
+
+## Time series patterns
+
+```{r}
+autoplot(ustreas) + ggtitle("US Treasury Bill Contracts") +  labs(x = "Day", y = "price")
+```
+
+## Time series patterns
+\small
+
+```{r}
+autoplot(lynx) +  ggtitle("Annual Canadian Lynx Trappings") +  xlab("Year") + ylab("Number trapped")
+```
+
+## Seasonal or cyclic?
+
+### Differences between seasonal and cyclic patterns:
+
+  * seasonal pattern constant length; cyclic pattern variable length
+  * average length of cycle longer than length of seasonal pattern
+  * magnitude of cycle more variable than magnitude of seasonal pattern
+     
+\bigskip
+
+**The timing of peaks and troughs is predictable with seasonal data, but unpredictable in the long term with cyclic data.**
+
+# Scatterplots
+
+## Scatterplots: Relationship *Between* Time Series
+\scriptsize
+Scatterplots are commonly used tools for visualizing the relationship between variables. Take the text example of Electricty Demand and Temperature in Victoria, Autralia:
+
+```{r tidy=TRUE}
+qplot(x=Temperature, y=Demand, data=as.data.frame(elecdemand)) + labs(y = "Demand", x = "Temperature (C)")
+```
+
+## Scatterplots: Relationship *Between* Time Series {.plain}
+
+\small
+We notice that higher temperatures are associated with higher demand for electricity. 
+
+### What if we would like to get a measure of the strength of this relationship?
+- For this, we will use the **correlation coefficient**:
+
+$$\rho_{xy} = \frac{\sum\limits_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum\limits_{i=1}^{n}(x_i-\bar{x})^2}\sqrt{\sum\limits_{i=1}^{n}(y-\bar{y})^2}} = \frac{\sum\limits_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sigma_x^2}\sqrt{\sigma_y^2}}, \quad -1 \le \rho_{xy} \le 1 $$
+
+- Negative values indicate a negative *linear* relationship between `x` and `y`.
+
+- Positive values indicate a positive *linear* relationship between `x` and `y`. 
+
+## Scatterplot Matrices: Relationship *Between* Time Series {.plain}
+\scriptsize
+We can visualize the correlation between multiple series using a scatterplot matrix. In `R`, we will use the `ggpairs()` command from the `GGally` 
+
+```{r, tidy=TRUE, fig.height=3.5, message=FALSE, keepaspectratio=TRUE}
+#install.packages("GGally") #unmute when running for the first time
+GGally::ggpairs(as.data.frame(visnights[,6:8]),columnLabels = c("Metro", "Central", "North"))
+```
+
+# Lag plots and autocorrelation
+
+## Example: Beer production
+
+```{r, echo=TRUE, fig.height=4.5, fig.width=8}
+beer <- window(ausbeer, start=1992)
+gglagplot(beer)
+```
+
+## Lagged scatterplots
+
+  * Each graph shows $y_t$ plotted against $y_{t-k}$ for different values of $k$.
+  * The autocorrelations are the correlations associated with these scatterplots.
+
+## Autocorrelation
+
+**Covariance** and **correlation**: measure extent of **linear relationship** between two variables ($y$ and $X$).
+
+**Autocovariance** and **autocorrelation**: measure linear relationship between **lagged values** of a time series $y$.
+
+We measure the relationship between:
+
+  * $y_{t}$ and $y_{t-1}$
+  * $y_{t}$ and $y_{t-2}$
+  * $y_{t}$ and $y_{t-3}$
+  * etc.
+
+## Autocorrelation {.plain}
+
+We denote the sample autocovariance at lag $k$ by $\gamma_k$ and the sample autocorrelation at lag $k$ by $\rho_k$.  Then define
+\begin{align*}
+\gamma_k &= \frac{1}{T}\sum_{t=k+1}^T (y_t-\bar{y})(y_{t-k}-\bar{y}) \\
+\text{and}\qquad \rho_{k} &= \frac{\gamma_k}{\gamma_0}
+\end{align*}
+
+  * It is easy to see that $\gamma_0$ is the variance of y. Let `k = 0` then:
+  
+  $$ \gamma_0 = \frac{1}{T}\sum_{t=1}^T (y_t-\bar{y})(y_{t}-\bar{y}) = \frac{1}{T}\sum_{t=1}^T (y_t-\bar{y})^2$$
+  
+  * $\rho_1$ indicates how successive values of  $y$  relate to each other
+  * $\rho_2$ indicates how  $y$ values two periods apart relate to each other
+  * $\rho_k$ is \textit{almost} the same as the sample correlation between $y_t$ and $y_{t-k}$.
+
+## Autocorrelation
+
+\small
+Results for first 9 lags for beer data:
+
+\footnotesize
+
+```{r, echo=FALSE}
+beeracf <- matrix(acf(c(beer), lag.max=9,
+                      plot=FALSE)$acf[-1,,1], nrow=1)
+colnames(beeracf) <- paste("$\\rho_",1:9,"$",sep="")
+knitr::kable(beeracf, booktabs=TRUE,
+             align="c", digits=3,
+             format.args=list(nsmall=3))
+```
+
+```{r beeracf, fig.height=2.5}
+ggAcf(beer)
+```
+
+## Autocorrelation
+
+  * $\rho_{4}$  higher than for the other lags. This is due to **the seasonal pattern in the data**: the peaks tend to be **4 quarters** apart and the troughs tend to be **2 quarters** apart.
+  * $\rho_2$ is more negative than for the other lags because troughs tend to be 2 quarters behind peaks.
+  * Together, the autocorrelations at lags 1, 2, \dots, make up the \emph{autocorrelation function} or ACF.
+  * The plot is known as a **correlogram**
+
+## ACF
+
+```{r, fig.height=4, echo=TRUE}
+ggAcf(beer,col="red")
+```
+
+## Trend and seasonality in ACF plots
+
+- When data have a trend, the autocorrelations for small lags tend to be large and positive.
+- When data are seasonal, the autocorrelations will be larger at the seasonal lags (i.e., at multiples of the seasonal frequency)
+- When data are trended and seasonal, you see a combination of these effects.
+
+## Aus monthly electricity production
+
+```{r}
+elec2 <- window(elec, start=1980)
+autoplot(elec2)
+```
+
+## Aus monthly electricity production
+
+```{r}
+ggAcf(elec2, lag.max=48)
+```
+
+## Aus monthly electricity production
+
+Time plot shows clear trend and seasonality.
+
+The same features are reflected in the ACF.
+
+  * The slowly decaying ACF indicates trend.
+  * The ACF peaks at lags 12, 24, 36, \dots, indicate seasonality of length 12.
+
+## Google stock price
+
+```{r}
+autoplot(goog,col="blue")
+```
+
+## Google stock price
+
+```{r}
+ggAcf(goog, lag.max=100)
+```
+
+## Let's Practice!!! 
+
+We have introduced the following graphics functions:
+
+  - `gglagplot`
+  - `ggAcf`
+  
+Explore the following time series using these functions. Can you spot any seasonality, cyclicity and trend? What do you learn about the series?
+
+  - `hsales`
+  - `usdeaths`
+  - `bricksq`
+  - `sunspotarea`
+  - `gasoline`
+
+## Which is which?
+
+```{r, fig.height=6, fig.width=12, echo=FALSE, warning=FALSE, out.width="11.5cm"}
+tp1 <- autoplot(cowtemp) + xlab("") + ylab("chirps per minute") +
+  ggtitle("1. Daily temperature of cow")
+tp2 <- autoplot(USAccDeaths/1e3) + xlab("") + ylab("thousands") +
+  ggtitle("2. Monthly accidental deaths")
+tp3 <- autoplot(AirPassengers) + xlab("") + ylab("thousands") +
+  ggtitle("3. Monthly air passengers")
+tp4 <- autoplot(mink/1e3) + xlab("") + ylab("thousands") +
+  ggtitle("4. Annual mink trappings")
+acfb <- ggAcf(cowtemp, ci=0) + xlab("") + ggtitle("B") + ylim(-0.4,1)
+acfa <- ggAcf(USAccDeaths, ci=0) + xlab("") + ggtitle("A") + ylim(-0.4,1)
+acfd <- ggAcf(AirPassengers, ci=0) + xlab("") + ggtitle("D") + ylim(-0.4,1)
+acfc <- ggAcf(mink, ci=0) + xlab("") + ggtitle("C") + ylim(-0.4,1)
+gridExtra::grid.arrange(tp1,tp2,tp3,tp4,
+                        acfa,acfb,acfc,acfd,nrow=2)
+```
+
+# White noise
+
+## Example: White noise
+
+```{r}
+set.seed(14567)
+wn <- ts(rnorm(36))
+autoplot(wn) + ggtitle("White Noise")
+```
+
+## Example: White noise
+
+```{r, results='asis', echo=FALSE,fig.height=2}
+ggAcf(wn)
+wnacf <- matrix(acf(c(wn), lag.max=7,
+                      plot=FALSE)$acf[-1,,1], nrow=1)
+colnames(wnacf) <- paste("$\\rho_",1:7,"$",sep="")
+knitr::kable(wnacf, booktabs=TRUE,
+             align="c", digits=3,
+             format.args=list(nsmall=3))
+
+```
+
+We expect each autocorrelation to be close to zero.
+
+## \large Sampling distribution of autocorrelations
+
+Sampling distribution of $\rho_k$ for white noise data is asymptotically N(0,$\frac{1}{T}$).
+
+  *  95% of all $\rho_k$ for white noise must lie within $\pm \frac{1.96}{\sqrt{T}}$.
+  * If this is not the case, the series is probably not WN.
+  * Common to plot lines at $\pm 1.96/\sqrt{T}$ when plotting ACF.
+These are the \textcolor{orange}{\textbf{\emph{critical values}}}.
+
+## Autocorrelation
+
+\structure{Example:}
+
+```{r results='asis',fig.height=2}
+ggAcf(wn)
+```
+
+$T=36$ and so critical values at $\pm \frac{1.96}{\sqrt{36}} = \pm 0.327$.
+
+All autocorrelation coefficients lie within these limits. Data cannot be distinguished from white noise.
+
+## Example: Pigs slaughtered
+
+\scriptsize
+```{r, fig.height=3,results='asis'}
+pigs2 <- window(pigs, start=1990)
+autoplot(pigs2) +
+  xlab("Year") + ylab("thousands") + 
+  ggtitle("Number of pigs slaughtered in Victoria")
+```
+
+## Example: Pigs slaughtered
+
+```{r}
+ggAcf(pigs2)
+```
+
+## Example: Pigs slaughtered
+
+Monthly total number of pigs slaughtered
+in the state of Victoria, Australia, from January 1990 through August 1995.
+(Source: Australian Bureau of Statistics.)
+
+  * Difficult to detect pattern in time plot.
+  * ACF shows some significant autocorrelation at lags 1, 2, and 3.
+  * $\rho_{12}$ relatively large although not significant.  This may indicate
+some slight seasonality.
+
+
+These show the series is **not a white noise series**.
+
+## Let's Practice!!!
+
+1. Compute the daily changes in the Google stock price (`ddgoog`).
+2. Does `ddgoog` look like white noise?
+    - Present a time plot of `ddgoog`
+    - Present the ACF plot
+
+## Let's Practice (Solution)
+\structure{Manually:}
+\scriptsize
+``` {r}
+#initialize the ddgoog variable to be a object with NAs
+ddgoog <- NA
+
+# We can use the loop to do the changes calculations
+# Remember with differencing we lose the first obs so we start the counter at 2
+for (i in 2:length(goog)){ 
+ddgoog[i] <- goog[i] - goog[i-1] # Store results in ddgoog at position [i]
+}
+#Declare as a ts and drop first obs since it's NA
+ddgoog <- ts(ddgoog[-1],start=c(2))
+round(head(ddgoog),3)
+
+```
+---
+\scriptsize
+
+```{r, tidy = TRUE, fig.height=2.15, out.width="11.5cm"}
+autoplot(ddgoog) + ggtitle("Daily Chances in Google Stock Prices") + labs(y = "Daily Changes", x = "")
+
+ggAcf(ddgoog)
+```
+
+## Let's Practice (Solution) {.plain}
+\structure{Using the fpp2 package:}
+\scriptsize
+
+```{r tidy= TRUE, fig.height=2.5,out.width="11.5cm"}
+dgoog <- diff(goog)
+round(head(dgoog),3)
+autoplot(dgoog)+ggtitle("Daily Chances in Google Stock Prices") + labs(y= "Daily Changes", x= "")
+```
+
+## Let's Practice (Solution) {.plain}
+\Large \center
+__So, what is your conclusion?__
