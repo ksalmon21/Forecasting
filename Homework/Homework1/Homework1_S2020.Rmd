@@ -1,0 +1,63 @@
+---
+title: 'AAEC 4984/5984 -- Applied Economic Forecasting'
+        
+author: "Put your name here"
+date: "Homework #1 -- Spring 2020"
+output: 
+  pdf_document:
+          keep_tex: no
+header-includes:
+ \usepackage{float} #Needed to fix the position of my graphs to where I included them in the document
+ 
+geometry: margin=0.8in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # Includes the codes from the R chunks by default
+knitr::opts_chunk$set(fig.pos = 'H') #Fixes the position of my graphs to where I included them in the document
+```
+The purpose of this assignment is to enhance your understanding of time series graphics and data pattern. It is intended to be rather straightforward and simple.
+
+**Instructions**: In all cases, please ensure that your graphs and visuals have properly titles and axes labels, where necessary. Recall that you can use `help()` to find out about the data in each series. For your convenience, I have posted my R markdown file on our course website so that you can open and alter as you see fit. Refer to the output, whenever appropriate, when discussing the results
+
+# Question 1: Visualizing Time Series Data
+
+Create time plots of the following time series: `bicoal`, `chicken`, `dole`, `usdeaths`, `lynx`, `goog`, `writing`, `fancy`, `a10`, `h02`. 
+
+- To allow multiple graphs on your page, please arrange your plots as grids. Below, I have provided the base code to achieve this (Note: you will need to install the `gridExtra` package before calling the `grid.arrange` command):
+
+```{r Q1plots, eval = FALSE, fig.align="center",fig.show='hold',fig.height=9,out.width="\\textwidth",,tidy=TRUE, tidy.opts=list(width.cutoff=80)} 
+# To display your graphs, replace `eval = FALSE` with `include = TRUE`
+#Please feel free to edit accordingly!
+g1 <- autoplot(. . .) + ggtitle("____________") + labs(x ="" , y = "  ")
+g2 <- autoplot(. . .) + ggtitle("____________") + labs(x ="" , y = "  ")
+g3 <- autoplot(. . .)  + ggtitle("____________")+labs(x ="" , y = "  ")
+g4 <- autoplot(. . .)  + ggtitle("____________") + labs(x ="" , y = "  ")
+g5 <- autoplot(. . .)  + ggtitle("____________")+ labs(x ="" , y = "  ")
+g6 <- autoplot(. . .) + ggtitle("____________") + labs(x ="" , y = "  ")
+g7 <- autoplot(. . .)  + ggtitle("____________") + labs(x ="" , y = "  ")
+g8 <- autoplot(. . .)  + ggtitle("____________") + labs(x ="" , y = "  ")
+g9 <- autoplot(. . .) + ggtitle("____________") + labs(x ="" , y = "  ")
+g10 <- autoplot(. . .)  + ggtitle("____________") + labs(x ="" , y = "  ")
+
+gridExtra::grid.arrange(g1,g2,g3,g4,g5,g6,g7,g8,g9,g10, nrow=5,ncol=2,newpage=TRUE)
+```
+
+
+# Question 2: Assessing Seasonality
+
+i. Use the `ggseasonplot()`, `ggsubseriesplot()`, and `ggAcf`\footnote{It might be useful to set the max lag in the ACF to 36 so that you can see a fair bit of the patterns in the correlogram.} functions to explore possible seasonality in the following time series: `writing`, `fancy`, `a10`, `h02`.
+
+ii. What can you say about the seasonal patterns?
+
+iii. Can you identify any unusual years?
+
+# Question 3: White Noise
+
+`dj` contains 292 consecutive trading days of the Dow Jones Index. 
+
+i. Plot this series and its ACF. Comment on any pattern noticed in both. Does this series look like white noise?
+
+ii. Now, use `ddj <- diff(dj)` to compute the daily changes in the index. 
+
+iii. Plot `ddj` and its ACF. Do the changes in the Dow Jones Index look like white noise?
