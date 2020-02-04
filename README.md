@@ -17,9 +17,9 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |           |                  | [Introduction to R (IV)](Lectures/1.Introduction/R_intro_IV.pdf)                |            |
 |           |                  | [Introduction to R Markdown](Lectures/1.Introduction/RMarkdown_Intro.pdf)             | [Complete Introduction to R on Datacamp](https://www.datacamp.com/courses/free-introduction-to-r/) **Ignore the section on Factors**           |
 |           |                  |                                         |            |
-|        |                  | **Topic 2: Exploring & Visualizing Time Series**     |            |
+|           |02/03/2020        | **Topic 2: Exploring & Visualizing Time Series**     |            |
 |          |                  | |            |
-| 3         |                  | [Exploring & Visualizing Time Series](Lectures/2.Exploring%20&%20Visualizing%20Time%20Series/2-Visualizing-Time-Series.pdf)    |   [HW\#1 - pdf](Homework/Homework1/Homework1_S2020.pdf) <p> [HW\#1 - Rmd](Homework/Homework1/Homework1_S2020.Rmd) <p> Solution (coming soon) 
+| 3         |                  | [Exploring & Visualizing Time Series](Lectures/2.Exploring%20&%20Visualizing%20Time%20Series/2-Visualizing-Time-Series.pdf)    |   [HW\#1 - pdf](Homework/Homework1/Homework1_S2020.pdf) <p> [HW\#1 - Rmd](Homework/Homework1/Homework1_S2020.Rmd) <p> Solution (coming soon) |
 |           |                  |                                         |            |
 |          |                  | **Topic 3: Evaluation of Basic Forecasting Methods** |            |
 |           |                  |                                         |            |
