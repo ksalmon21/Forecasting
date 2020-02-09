@@ -1,0 +1,63 @@
+---
+title: 'AAEC 4984/5984 -- Applied Economic Forecasting'
+        
+author: "Homework Solution Sample Template"
+date: "Spring 2020"
+output: 
+  pdf_document:
+          keep_tex: no
+header-includes:
+ \usepackage{float} #Needed to fix the position of my graphs to where I included them in the document
+ 
+geometry: margin=0.8in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE) # Includes the codes from the R chunks by default
+knitr::opts_chunk$set(fig.pos = 'H') #Fixes the position of my graphs to where I included them in the document
+library(fpp2)
+```
+This template will provide a guide to what I anticipate that your homework solutions will look like. Please feel free to exercise your creativity when producing your solutions however. 
+
+- Unless stated, please display the R chunk that produced your results.
+
+- To do a quick spell check of your document please press **F7** on your keyboard.
+
+- Whenever appropriate, please refer to the output. Please take a look at the `.Rmd` [here](Homework_Solution_Template.Rmd) to see how I am able to (i) Add captions to my plots, (ii) hyperlink and reference the plots, and (iii) embed the results stored in the R chunks into my text.
+
+# Question 1: Generating random variables
+
+i. Generate a random normal variable, `x1`, that has 50 observations, a mean of 75, and standard deviation of 5. That is $x1\sim N(75,5^2)$. 
+- Use a seed of 12345. 
+- set x1 as a ts object (x1.ts). Let `R` use its default frequency, start, end arguments.
+- Plot x1.ts 
+
+```{r x1plots, include=TRUE, fig.align="center",tidy=TRUE, fig.height= 4, fig.cap= "Time Plot of X1"} 
+set.seed(12345)
+x1 <- rnorm(50,mean=75,sd=5)
+x1.ts <- ts(x1)
+autoplot(x1.ts, col = "green4") + ggtitle("Plot of x1") + labs(x ="" , y = " ")
+```
+ 
+ii. Do you notice any discernible patterns in the plot?
+
+**The observations of x1 in Figure \ref{fig:x1plots} appear to be random with no discernible pattern.**
+
+iii. How does the mean and standard deviation of this sample compare to the population values?
+
+```{r}
+meanx1 <- round(mean(x1),3)
+stdx1 <- round(sd(x1),3)
+```
+
+**The random draw of 50 observations has a mean of `r meanx1` and a standard deviation of `r stdx1`. These are not too far off from their respective population values of 75 and 5.**
+
+# Question 2: White Noise
+
+i. Plot the ACF of this series and comment on your observations.
+```{r x1acf, include=TRUE, fig.align="center",tidy=TRUE, tidy.opts=list(width.cutoff=80), fig.cap= "ACF Plot of X1"} 
+ggAcf(x1.ts, col = "blue4",lag.max = 24) + ggtitle("ACF Plot of x1") 
+```
+
+**From the plots in Figure \ref{fig:x1acf}, all the autocorrelation statistics are within the 95% significance bands. Therefore, the x1 series is not distinguishable from a white noise process.**
+
