@@ -19,7 +19,7 @@ The instructor reserves the right to change the dates and topics as seen fit. Pr
 |           |                  |                                         |            |
 |           |02/03/2020        | **Topic 2: Exploring & Visualizing Time Series**     |            |
 |          |                  | |            |
-| 3         |                  | [Exploring & Visualizing Time Series](Lectures/2.Exploring%20&%20Visualizing%20Time%20Series/2-Visualizing-Time-Series.pdf)    |   [HW\#1 - pdf](Homework/Homework1/Homework1_S2020.pdf) <p> [HW\#1 - Rmd](Homework/Homework1/Homework1_S2020.Rmd) <p> Solution (coming soon) |
+| 3         |                  | [Exploring & Visualizing Time Series](Lectures/2.Exploring%20&%20Visualizing%20Time%20Series/2-Visualizing-Time-Series.pdf)    |  [HW Solution Template - pdf](Homework/Solution_Template/Homework_Solution_Template.pdf) <p> [HW Solution Template - Rmd](Homework/Solution_Template/Homework_Solution_Template.Rmd) <p> [HW\#1 - pdf](Homework/Homework1/Homework1_S2020.pdf) <p> [HW\#1 - Rmd](Homework/Homework1/Homework1_S2020.Rmd) <p> Solution (coming soon) |
 |           |                  |                                         |            |
 |          |                  | **Topic 3: Evaluation of Basic Forecasting Methods** |            |
 |           |                  |                                         |            |
