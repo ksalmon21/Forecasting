@@ -15,6 +15,7 @@ geometry: margin=0.8in
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) # Includes the codes from the R chunks by default
 knitr::opts_chunk$set(fig.pos = 'H') #Fixes the position of my graphs to where I included them in the document
+library(fpp2)
 ```
 The purpose of this assignment is to enhance your understanding of time series graphics and data pattern. It is intended to be rather straightforward and simple.
 
@@ -26,7 +27,7 @@ Create time plots of the following time series: `bicoal`, `chicken`, `dole`, `us
 
 - To allow multiple graphs on your page, please arrange your plots as grids. Below, I have provided the base code to achieve this (Note: you will need to install the `gridExtra` package before calling the `grid.arrange` command):
 
-```{r Q1plots, eval = FALSE, fig.align="center",fig.show='hold',fig.height=9,out.width="\\textwidth",,tidy=TRUE, tidy.opts=list(width.cutoff=80)} 
+```{r Q1plots, eval = FALSE, fig.align="center",fig.show='hold',fig.height=9,out.width="\\textwidth",tidy=TRUE, tidy.opts=list(width.cutoff=80)} 
 # To display your graphs, replace `eval = FALSE` with `include = TRUE`
 #Please feel free to edit accordingly!
 g1 <- autoplot(. . .) + ggtitle("____________") + labs(x ="" , y = "  ")
