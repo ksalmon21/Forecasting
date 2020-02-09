@@ -23,7 +23,11 @@ This template will provide a guide to what I anticipate that your homework solut
 
 - To do a quick spell check of your document please press **F7** on your keyboard.
 
-- Whenever appropriate, please refer to the output. Please take a look at the `.Rmd` [here](.../Homework/Solution_Template/Homework_Solution_Template.Rmd) to see how I am able to (i) Add captions to my plots, (ii) hyperlink and reference the plots, and (iii) embed the results stored in the R chunks into my text.
+- Whenever appropriate, please refer to the output. Please take a look at the `.Rmd` to see how I am able to:
+
+    i. Add captions to my plots, 
+    ii. hyperlink and reference the plots, and
+    iii. embed the results stored in the R chunks into my text.
 
 # Question 1: Generating random variables
 
@@ -32,7 +36,7 @@ i. Generate a random normal variable, `x1`, that has 50 observations, a mean of 
 - set x1 as a ts object (x1.ts). Let `R` use its default frequency, start, end arguments.
 - Plot x1.ts 
 
-```{r x1plots, include=TRUE, fig.align="center",tidy=TRUE, fig.height= 4, fig.cap= "Time Plot of X1"} 
+```{r x1plots, include=TRUE, fig.align="center",tidy=TRUE, fig.height= 3.75, fig.cap= "Time Plot of X1"} 
 set.seed(12345)
 x1 <- rnorm(50,mean=75,sd=5)
 x1.ts <- ts(x1)
